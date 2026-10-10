@@ -204,3 +204,58 @@
 - 앱 아이콘·manifest·theme-color를 딥그린/라임으로 교체, sw CACHE_NAME v19
 - 문구 전면 재작성: 해요체 → 합니다/하십시오체(정중한 회사 문서 톤), 영문도 축약형·수사 의문문 제거
 - 검증: node --check, e2e.js/e2e2.js 통과, EN/KO 전 화면 스캔(잔여 한글 = 언어 칩만)
+
+## v7.0 (2026-10-10) — 테마 4종 + 유리 카드 모양
+- 설정 → 테마에서 색 조합 4가지 선택: **Stone(기본)** · Forest(v6 딥그린) · Meadow(#407F3E·#89B449·#DBD468·#E7E0C4·#E68A8C) · Clinic(연회색·남색)
+- 선택값은 이 기기에만 저장(`app-theme`). 화면 그리기 전에 `<html data-palette>`로 적용해 깜빡임 없음
+- 색 값은 style.css의 `[data-palette]` 블록 4개에만 있음. 화면 규칙은 변수(--bg, --card, --accent, --strong …)만 씀
+- 모양: 반투명 유리 카드, 둥근 모서리 24px, 떠 있는 알약 하단 메뉴, 원형 아이콘 빠른 실행, 소제목 문장형
+- 화면 구성·버튼 위치는 v6 그대로
+- 같이 고친 것: 알림(토스트)이 제목·뒤로 버튼을 가리던 것 → 하단 메뉴 위로 이동 / 한국어 모드에서 로그인 버튼이 "Log in"으로 바뀌던 것
+- 대비: 4개 테마 × 22개 글자/바탕 조합 모두 4.5:1 이상 (자동 계산)
+- 캐시: eric-cleaning-v20
+
+## v7.1 (2026-10-10) — 테마 4종 교체 + 로고 정중앙
+- v7.0 테마(Stone·Forest·Meadow·Clinic) 전부 삭제, 포도가 준 팔레트 4장으로 새로 만듦
+  - **Vanilla(기본)**: #FDFAF8 · #DAE5EC · #EAE3D9 · #CFB59E
+  - **Sage**: #EDE7D1 · #D2D7D3 · #B7B89C · #68736C
+  - **Sorbet**: #FFF4C6 · #D1D275 · #EF896A · #A5B7E5
+  - **Honey**: #F0E4D8 · #E5BB8B · #90ACAF · #939C89
+- 팔레트에 짙은 색이 없는 테마는 글자·출근 버튼용 짙은 색을 같은 색 계열에서 만들어 씀(대비 4.5:1 확보)
+- 바탕에 참고 이미지의 리넨 종이 질감을 아주 옅게 깔았음
+- 로고 타일 안 무늬가 위로 11px 쏠려 있던 것 → 정중앙(오차 0px)
+- 예전 테마를 고른 기기는 자동으로 Vanilla로 바뀜
+- 캐시: eric-cleaning-v21
+
+## v7.2 (2026-10-10) — 테마 4종 다시 교체
+- v7.1 테마(Vanilla·Sage·Sorbet·Honey) 삭제, 새 팔레트 4장으로 교체
+  - **Riviera(기본)**: Chambray #7A9CB3 · Terracotta #AD7556 · Sandstone #DCCFB8 · Muslin #F1EFE6 · Clove #53443D
+  - **Gelato**: Strawberry #E5ADA8 · Vanilla #E5E0D8 · Caramel #D0A77B · Chocolate #725C3F · Lemon #EFE8D8 · Mint #D8D7B2
+  - **Viridian**: Shell #F7F5F1 · Stone #E0DCD1 · Honeydew #E4E3BC · Sky #D5E3E8 · Viridian #344945
+  - **Pine**: Pine #175A44 · Ivory #DADBCD · Grass #4F915B · Cream #F0F3E2 · Slate #618CB5 · Espresso #38312A · Sky #B6D4E7
+- 역할: 바탕 / 카드 / 강조(오늘·메뉴·로그인) / 출근 버튼 / 상태 칩 순서로 팔레트 색을 배정
+  - Riviera: Sandstone / Muslin / Terracotta / Clove / Chambray
+  - Gelato: Lemon / 흰색 / Strawberry / Chocolate / Mint
+  - Viridian: Stone / Shell / Viridian / 더 짙은 비리디언 / Honeydew (허니듀를 강조로 쓰면 바탕과 구분이 안 돼 바꿈)
+  - Pine: Ivory / Cream / Sky / Pine / Sky (Grass·Slate는 점 표시)
+- 테마 카드에 팔레트 전체 색 표시, 한국어 설명이 단어 중간에서 끊기지 않게 함
+- 캐시: eric-cleaning-v22
+
+## v7.3 (2026-10-10) — 배색 다시 잡기 (색은 v7.2와 같은 팔레트 4장)
+- 포도 피드백: "무조건 넣지 말고 보기에 편안한 색으로". v7.2는 팔레트 색을 전부 넓게 칠해 화면이 무거웠음
+- 배색 규칙(모든 테마 공통)
+  - 바탕·카드 = 팔레트의 가장 밝은 색 (약 60%)
+  - 보조색 = 선택된 메뉴·칩, 근무한 날에만 옅게 (약 30%)
+  - 포인트색 = 옅은 바탕 + 진한 글자로 공지·근무 중·오버타임·관리자 '근무중' 숫자에만 (약 10%)
+  - 주요 버튼(로그인·출근·저장·전송)과 오늘 날짜 = 팔레트의 짙은 색
+  - 빠른 실행 4칸은 모두 같은 카드 (특정 칸만 색칠하지 않음)
+- 테마별: Riviera(Muslin/Sandstone/Terracotta/Clove) · Gelato(Lemon/Mint/Strawberry/Chocolate) · Viridian(Shell/Sky·Stone/Honeydew/Viridian) · Pine(Cream/Sky/Grass/Pine)
+- 쓰지 않은 색: Riviera의 Chambray는 메모 점·링크에만, Gelato의 Caramel은 개인 일정 점에만, Pine의 Slate·Espresso는 메모 점·글자에만
+- 테마 카드 견본은 4색(바탕·보조·포인트·버튼)만 표시
+- 캐시: eric-cleaning-v23
+
+## v7.4 (2026-10-10) — 기본 언어 한국어 · 로그인 멈춤 방지
+- 언어 저장 키를 `app-lang` → `app-lang-v2`로 바꿈. 예전 키는 앱이 열릴 때마다 기본값을 자동 저장해서, 기본을 바꿔도 기존 기기에 반영되지 않았기 때문
+- `<html lang>`도 고른 언어로 바뀜
+- `syncCrewFromServer` · `syncSitesFromServer`에 3초 시간 제한. 서버가 아예 응답하지 않는 상황에서 로그인 완료까지 약 10초(전에는 끝나지 않음)
+- 저장소: public/(배포) · docs/(기록). 캐시 eric-cleaning-v24

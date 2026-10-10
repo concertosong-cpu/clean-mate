@@ -48,10 +48,12 @@ function upsertSite(site){
 }
 function syncSitesFromServer(done){
   if (!sb){ if (done) done(); return; }
-  sb.from("sites").select("*").then(({ data, error }) => {
+  // 서버가 멈췄거나 전파가 약해도 3초 뒤에는 이 기기 자료로 계속 진행 (로그인이 멈추지 않게)
+  withTimeout(sb.from("sites").select("*"), 3000).then(r => {
+    const { data, error } = (r && !r.__timeout) ? r : { data: null, error: true };
     if (!error && data && data.length) saveSites(data.map(r => ({ name: r.name, address: r.address, type: r.type, lat: r.lat, lng: r.lng, note: r.note })));
     if (done) done();
-  });
+  }, () => { if (done) done(); });
 }
 // --- 크루 ---
 let crewList = JSON.parse(lsGet("crew-list") || "[]");
@@ -65,7 +67,8 @@ function upsertCrew(c){
 }
 function syncCrewFromServer(done){
   if (!sb){ if (done) done(); return; }
-  sb.from("crew").select("*").eq("active", true).then(({ data, error }) => {
+  withTimeout(sb.from("crew").select("*").eq("active", true), 3000).then(r => {
+    const { data, error } = (r && !r.__timeout) ? r : { data: null, error: true };
     if (!error && data){
       data.forEach(r => {
         const i = crewList.findIndex(x => x.name === r.name);
@@ -75,7 +78,7 @@ function syncCrewFromServer(done){
       saveCrew();
     }
     if (done) done();
-  });
+  }, () => { if (done) done(); });
 }
 // --- 공지 핀 ---
 function loadNotice(){ return JSON.parse(lsGet("notice") || "null"); }
@@ -155,7 +158,8 @@ function hoursFor(crew, year, month){
   return { hours: Math.round(hours * 10) / 10, days };
 }
 
-let langIsKo = (lsGet("app-lang") || "en") === "ko"; // 기본 영어
+// 기본 한국어 (v7.4~). 예전 키(app-lang)는 기본값이 자동 저장돼 있어 새 키로 바꿈 — 화면에서 직접 고른 언어만 저장
+let langIsKo = (lsGet("app-lang-v2") || "ko") === "ko";
 // 미리보기 모드: 파일로 직접 열었거나 Claude 미리보기 주소일 때. 서버·GPS가 막힌 환경이라 확인용으로만 씀
 const IS_PREVIEW = location.protocol === "file:" || /claude|localhost|127\.0\.0\.1/.test(location.hostname);
 function T(key){ const d = langIsKo ? i18n.ko : i18n.en; return d[key] || i18n.ko[key] || key; }
@@ -236,7 +240,7 @@ const i18n = {
     colleagueSchedule: "동료 스케줄",
     groupMyInfo: "내 정보",
     sos: "SOS",
-    settingsRow: "설정 (언어·시간대)",
+    settingsRow: "설정 (언어·테마·시간대)",
     groupContact: "문의",
     chatWithAdmin: "관리자와 채팅",
     chatTitle: "관리자와 채팅",
@@ -283,7 +287,7 @@ const i18n = {
     colleagueSchedule: "Team schedule",
     groupMyInfo: "My info",
     sos: "SOS",
-    settingsRow: "Settings (language · time zone)",
+    settingsRow: "Settings (language · theme · time zone)",
     groupContact: "Contact",
     chatWithAdmin: "Chat with admin",
     chatTitle: "Chat with admin",
@@ -295,6 +299,22 @@ const i18n = {
 };
 
 Object.assign(i18n.ko, i18n._ko); Object.assign(i18n.en, i18n._en);
+
+// ===== v7 테마 선택 문구 =====
+Object.assign(i18n.ko, {
+  themeLabel:"테마", themeNote:"테마는 이 기기에만 적용됩니다.",
+  themeRiviera:"리비에라", themeRivieraDesc:"머슬린·테라코타·클로브",
+  themeGelato:"젤라토", themeGelatoDesc:"레몬·딸기·초콜릿",
+  themeViridian:"비리디언", themeViridianDesc:"셸·허니듀·비리디언",
+  themePine:"파인", themePineDesc:"크림·그래스·파인"
+});
+Object.assign(i18n.en, {
+  themeLabel:"Theme", themeNote:"The theme applies to this device only.",
+  themeRiviera:"Riviera", themeRivieraDesc:"Muslin, terracotta and clove",
+  themeGelato:"Gelato", themeGelatoDesc:"Lemon, strawberry and chocolate",
+  themeViridian:"Viridian", themeViridianDesc:"Shell, honeydew and viridian",
+  themePine:"Pine", themePineDesc:"Cream, grass and pine"
+});
 
 // ===== v5.1 전체 번역 키 (모든 화면 영어 기본 + 한국어 옵션) =====
 Object.assign(i18n.ko, {
@@ -854,7 +874,7 @@ async function loginWithPin(){
   const pin = document.getElementById("pin-input").value.trim();
   if (pin.length !== 4 || isNaN(pin)){ alert(langIsKo ? "PIN 4자리를 입력하십시오." : "Enter your 4-digit PIN."); return; }
   const btn = document.querySelector("#view-role .role-btn.employee"); if (btn){ btn.disabled = true; btn.textContent = T("checking"); }
-  const restoreBtn = () => { if (btn){ btn.disabled = false; btn.textContent = "Log in"; } };
+  const restoreBtn = () => { if (btn){ btn.disabled = false; btn.textContent = T("loginBtn"); } };
   const entered = await pinHash(name, pin);
   const defaultHash = await pinHash(name, CREW_DEFAULT_PIN);
   const row = await fetchCrewRow(name);
@@ -1181,12 +1201,30 @@ function closeMenuIfBg(e){ if (e.target.id === "quick-menu-overlay") closeMenu()
 
 function openSettings(){ goTo("settings"); refreshGpsStatus(); const el = document.getElementById("settings-site-name"); if (el) el.textContent = MY_SITE || T("noSiteShort"); }
 
+// ===== 테마 (색 조합) — 이 기기에만 저장. 색 값은 style.css의 [data-palette] 블록에만 있음 =====
+const THEMES = ["riviera", "gelato", "viridian", "pine"];
+function currentTheme(){ const t = document.documentElement.getAttribute("data-palette"); return THEMES.includes(t) ? t : "riviera"; }
+function applyThemeUI(){
+  const t = currentTheme();
+  document.querySelectorAll("[data-theme-opt]").forEach(b => b.classList.toggle("active", b.dataset.themeOpt === t));
+  const meta = document.querySelector('meta[name="theme-color"]');
+  const c = getComputedStyle(document.documentElement).getPropertyValue("--meta").trim();
+  if (meta && c) meta.setAttribute("content", c);
+}
+function setTheme(name){
+  if (!THEMES.includes(name)) return;
+  document.documentElement.setAttribute("data-palette", name);
+  lsSet("app-theme", name);
+  applyThemeUI();
+}
+
 function setLang(lang){
   document.getElementById("lang-ko-chip").classList.toggle("active", lang === "ko");
   document.getElementById("lang-en-chip").classList.toggle("active", lang === "en");
   langIsKo = (lang === "ko");
   applyLang();
-  lsSet("app-lang", lang);
+  lsSet("app-lang-v2", lang);
+  document.documentElement.lang = lang;
 }
 
 function applyLang(){
@@ -1228,7 +1266,7 @@ function openColleagues(){
       <div class="colleague-avatar"></div>
       <div>
         <div class="colleague-name">${c.name}</div>
-        <div style="font-size:10px; color:#8A9490;">${days}</div>
+        <div class="colleague-days">${days}</div>
       </div>
       <div class="colleague-time">${status}</div>
     </div>`;
@@ -2309,9 +2347,10 @@ if (__dateEl) __dateEl.textContent = fullDate(__today);
 
 // 저장된 언어 설정 복원 (새로고침해도 유지)
 (function restoreLang(){
-  const saved = lsGet("app-lang") || "en";
+  const saved = lsGet("app-lang-v2") || "ko";
   setLang(saved);
 })();
+applyThemeUI(); // 테마 선택 표시·상단 바 색 맞추기 (테마 자체는 index.html 머리에서 이미 적용됨)
 
 
 // 로그인 유지: 이전에 로그인한 상태였으면 역할선택 화면을 건너뛰고 바로 이동

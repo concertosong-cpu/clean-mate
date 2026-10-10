@@ -7,9 +7,10 @@
 - `public/` — 배포되는 앱 전체 (빌드 없음, 파일 그대로 서비스)
 - `docs/` — 진행 기록(PROJECT-SUMMARY.md), Supabase SQL
 
-## 배포 (Cloudflare Pages)
-- 저장소 연결 시: Framework preset `None`, Build command 비움, **Build output directory `public`**
-- 직접 올리기 시: `public` 폴더 안의 파일을 그대로 업로드
+## 배포 (Vercel)
+- 저장소 루트의 `vercel.json`이 설정을 담고 있습니다: 빌드 없음, 배포 폴더 `public`, 검색엔진 노출 막음, `sw.js`·첫 화면은 매번 새로 받음
+- 처음 한 번: Vercel → Add New → Project → GitHub `clean-mate` Import → 설정은 그대로 두고 Deploy
+- 그 뒤로는 main에 올릴 때마다 자동 배포
 - 배포할 때마다 `public/sw.js`의 `CACHE_NAME` 번호를 올립니다 (안 올리면 폰에 옛 화면이 남음)
 
 ## 서버

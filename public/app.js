@@ -300,14 +300,14 @@ const i18n = {
 
 Object.assign(i18n.ko, i18n._ko); Object.assign(i18n.en, i18n._en);
 
-// ===== v7.5 오늘 일정 예시 =====
+// ===== v7.5 오늘 일정 예시 (v7.6: 브리즈번 실제 매장 이름 — 예시일 뿐 실제 거래처 아님) =====
 Object.assign(i18n.ko, {
   jobExampleLabel:"예시 — 관리자가 근무지를 배정하면 이 자리에 실제 일정이 표시됩니다", exampleTag:"예시",
-  jobExamples:[["06:00","울월스 ○○점","정기 청소 · 매장 바닥·화장실"],["10:30","콜스 ○○점","정기 청소 · 직원 휴게실·창고"],["14:00","○○ 오피스","사무실 청소 · 주 2회"]]
+  jobExamples:[["06:00","울월스 투웡 빌리지점","정기 청소 · 매장 바닥·화장실 · Toowong QLD 4066"],["10:30","콜스 인두루필리점","정기 청소 · 직원 휴게실·창고 · Indooroopilly QLD 4068"],["14:00","알디 써니뱅크 힐스점","정기 청소 · 입구·계산대 · Sunnybank Hills QLD 4109"]]
 });
 Object.assign(i18n.en, {
   jobExampleLabel:"Example — your real schedule appears here once a manager assigns your site", exampleTag:"Example",
-  jobExamples:[["06:00","Woolworths ○○","Regular clean · shop floor and washrooms"],["10:30","Coles ○○","Regular clean · staff room and storage"],["14:00","○○ Office","Office clean · twice a week"]]
+  jobExamples:[["06:00","Woolworths Toowong Village","Regular clean · shop floor and washrooms · Toowong QLD 4066"],["10:30","Coles Indooroopilly","Regular clean · staff room and storage · Indooroopilly QLD 4068"],["14:00","ALDI Sunnybank Hills","Regular clean · entrance and checkouts · Sunnybank Hills QLD 4109"]]
 });
 
 // ===== v7 테마 선택 문구 =====

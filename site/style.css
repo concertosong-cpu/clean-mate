@@ -27,7 +27,7 @@
   --radius-sm:12px;
   --shadow:0 10px 30px rgba(27,31,29,.08), 0 1px 2px rgba(27,31,29,.05);
   --shadow-lg:0 24px 60px rgba(27,31,29,.14);
-  --font:'Outfit','Pretendard',-apple-system,'Apple SD Gothic Neo','Segoe UI',sans-serif;
+  --font:'Outfit','Pretendard','Noto Sans KR',-apple-system,'Apple SD Gothic Neo','Segoe UI',sans-serif;
   --wrap:1160px;
 }
 

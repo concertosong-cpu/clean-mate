@@ -1,4 +1,4 @@
-const CACHE_NAME = "eric-cleaning-v24";
+const CACHE_NAME = "eric-cleaning-v25";
 const ASSETS = [
   "./index.html",
   "./style.css",

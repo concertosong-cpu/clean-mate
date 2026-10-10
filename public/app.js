@@ -300,6 +300,16 @@ const i18n = {
 
 Object.assign(i18n.ko, i18n._ko); Object.assign(i18n.en, i18n._en);
 
+// ===== v7.5 오늘 일정 예시 =====
+Object.assign(i18n.ko, {
+  jobExampleLabel:"예시 — 관리자가 근무지를 배정하면 이 자리에 실제 일정이 표시됩니다", exampleTag:"예시",
+  jobExamples:[["06:00","울월스 ○○점","정기 청소 · 매장 바닥·화장실"],["10:30","콜스 ○○점","정기 청소 · 직원 휴게실·창고"],["14:00","○○ 오피스","사무실 청소 · 주 2회"]]
+});
+Object.assign(i18n.en, {
+  jobExampleLabel:"Example — your real schedule appears here once a manager assigns your site", exampleTag:"Example",
+  jobExamples:[["06:00","Woolworths ○○","Regular clean · shop floor and washrooms"],["10:30","Coles ○○","Regular clean · staff room and storage"],["14:00","○○ Office","Office clean · twice a week"]]
+});
+
 // ===== v7 테마 선택 문구 =====
 Object.assign(i18n.ko, {
   themeLabel:"테마", themeNote:"테마는 이 기기에만 적용됩니다.",
@@ -1433,7 +1443,18 @@ function renderHome(){
   if (nb){ if (n && n.text){ nb.style.display = "flex"; nb.innerHTML = `<b>${T("noticeLabel")}</b><span>${escapeHtml(n.text)}</span>`; } else nb.style.display = "none"; }
   const jobs = document.getElementById("today-jobs"), cnt = document.getElementById("today-jobs-count");
   if (jobs){
-    if (!MY_SITE){ jobs.innerHTML = `<div class="chat-empty" style="margin:10px 0 20px;">${T("noJobs")}</div>`; if (cnt) cnt.textContent = ""; }
+    if (!MY_SITE){
+      // 배정 전: 실제 일정이 어떻게 보이는지 '예시' 카드로 안내 (저장되는 자료 아님)
+      const ex = T("jobExamples");
+      jobs.innerHTML = `<div class="chat-empty" style="margin:10px 0 12px;">${T("noJobs")}</div>
+        <div class="job-example-label">${T("jobExampleLabel")}</div>` +
+        (Array.isArray(ex) ? ex : []).map(e => `<div class="job-card is-example" aria-hidden="true">
+          <div class="job-time">${e[0]}</div>
+          <div class="job-info"><div class="job-addr">${e[1]}</div><div class="job-meta">${e[2]}</div></div>
+          <div class="job-status status-wait">${T("exampleTag")}</div>
+        </div>`).join("");
+      if (cnt) cnt.textContent = "";
+    }
     else {
       const st = loadSites().find(x => x.name === MY_SITE) || {};
       const w = workingNow().find(x => x.name === MY_NAME);
@@ -2077,9 +2098,9 @@ function saveRequest(type, data){
 
   if (sb){
     sb.from("requests").insert({
-      crew_name: currentRoleLabel(),
+      crew_name: MY_NAME || currentRoleLabel(),   // 신청한 크루 이름 (예전엔 직급 이름이 들어가던 버그)
       type,
-      data,
+      data: Object.assign({}, data, MY_SITE ? { _site: MY_SITE } : {}),   // 표에 근무지 칸이 없어 data 안에 함께 저장
       status: "대기"
     }).select().single().then(({ data: row, error }) => {
       if (error){ console.warn("requests server save failed (kept locally):", error.message); return; }
@@ -2136,14 +2157,11 @@ function renderAdminApprovals(){
       .then(({ data, error }) => {
         if (error){ console.warn("requests server fetch failed (showing local only):", error.message); return; }
         if (!data) return;
-        const merged = data.map(row => ({
-          sbId: row.id,
-          type: row.type,
-          data: row.data,
-          time: row.created_at,
-          status: row.status,
-          decidedBy: row.decided_by
-        }));
+        const merged = data.map(row => {
+          const d = Object.assign({}, row.data || {}); const site = d._site || ""; delete d._site;
+          return { sbId: row.id, type: row.type, data: d, crew: row.crew_name, site,
+                   time: row.created_at, status: row.status, decidedBy: row.decided_by };
+        });
         lsSet("requests", JSON.stringify(merged));
         draw(merged);
       });

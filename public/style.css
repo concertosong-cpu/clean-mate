@@ -732,7 +732,7 @@ h1{ font-weight:500; font-size:19px; letter-spacing:-0.3px; color:var(--on-bg); 
 .job-card{ border-radius:20px; padding:15px 16px; margin-bottom:8px; }
 .job-addr{ font-size:17px; font-weight:400; color:var(--ink); letter-spacing:-0.2px; }
 .job-meta{ font-size:12px; color:var(--ink-mute); margin-top:3px; }
-.job-time{ font-size:13px; color:var(--ink-soft); font-weight:500; }
+.job-time{ font-size:13px; background:var(--card-alt); color:var(--ink); font-weight:600; font-variant-numeric:tabular-nums; }
 .job-status{
   border-radius:999px; padding:5px 11px; font-size:11px; font-weight:600;
   background:var(--chip); color:var(--on-chip); letter-spacing:0;
@@ -1047,6 +1047,9 @@ h1{ font-weight:500; font-size:19px; letter-spacing:-0.3px; color:var(--on-bg); 
 /* ---------- 배경 위 빈 상태 ---------- */
 .view > .chat-empty, #today-jobs .chat-empty{ color:var(--on-bg-mute); }
 #today-jobs .job-card .job-addr{ color:var(--ink); }
+/* 오늘 일정 '예시' 카드 — 실제 일정과 헷갈리지 않게 점선·흐리게 */
+.job-example-label{ font-size:11px; color:var(--on-bg-mute); margin:0 4px 8px; line-height:1.5; word-break:keep-all; }
+#today-jobs .job-card.is-example{ background:var(--tint); border:1.5px dashed var(--tint-line); box-shadow:none; opacity:.78; pointer-events:none; }
 
 /* ---------- 크루 카드: 액션 버튼을 아래 줄로 ---------- */
 #crew-status-list .job-card{ flex-wrap:wrap; align-items:flex-start; row-gap:10px; }

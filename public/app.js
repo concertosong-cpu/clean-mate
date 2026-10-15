@@ -1218,7 +1218,7 @@ function closeMenuIfBg(e){ if (e.target.id === "quick-menu-overlay") closeMenu()
 
 function openSettings(){ goTo("settings"); refreshGpsStatus(); const el = document.getElementById("settings-site-name"); if (el) el.textContent = MY_SITE || T("noSiteShort"); }
 
-// ===== 픽셀 얼굴 (v8.1) — 16x16 자체 제작 그림 ('#' 선·머리, 'o' 피부, '+' 볼·빛). 색은 style.css의 --px-* =====
+// ===== 픽셀 얼굴 (v8.1) — 16x16 자체 제작 그림 ('#' 선·머리, 'o' 피부, '+' 볼·빛). 배경 없음(투명). 색은 style.css의 --px-* =====
 const FACES = {
   f01:["....########....","...##########...","...##########...","...##########...","..############..","..##oooooooo##..","..#oooooooooo#..","..#oo#oooo#oo#..",".#ooo#oooo#ooo#.",".#oooooooooooo#.","..#oooooooooo#..","..#ooo#oo#ooo#..","..#oooo##oooo#..","...#oooooooo#...","....########....","................"],
   f02:["....########....","...##########...","...##########...","...##########...","..############..","..##oooo######..","..#ooooooooo##..","..#oo#oooo#oo#..",".#ooo#oooo#ooo#.",".#oooooooooooo#.","..#oo#oooo#oo#..","..#ooo####ooo#..","..#oooooooooo#..","...#oooooooo#...","....########....","................"],
@@ -1248,7 +1248,7 @@ function faceSVG(id){
       x += w;
     }
   });
-  return `<svg class="pixel-face" viewBox="-1 -1 18 18" shape-rendering="crispEdges" aria-hidden="true"><rect class="px-bg" x="-1" y="-1" width="18" height="18"/>${r}</svg>`;
+  return `<svg class="pixel-face" viewBox="-1 -1 18 18" shape-rendering="crispEdges" aria-hidden="true">${r}</svg>`;
 }
 function renderAvatars(){
   const f = myFace(), initial = (MY_NAME || "C").trim().charAt(0).toUpperCase();

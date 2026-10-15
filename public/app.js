@@ -1218,7 +1218,7 @@ function closeMenuIfBg(e){ if (e.target.id === "quick-menu-overlay") closeMenu()
 
 function openSettings(){ goTo("settings"); refreshGpsStatus(); const el = document.getElementById("settings-site-name"); if (el) el.textContent = MY_SITE || T("noSiteShort"); }
 
-// ===== 픽셀 얼굴 (v8.1) — 16x16 자체 제작 그림 ('#' 선·머리, 'o' 피부, '+' 볼·빛). 배경 없음(투명). 색은 style.css의 --px-* =====
+// ===== 픽셀 얼굴 (v8.1) — 16x16 자체 제작 그림 ('#' 선·머리, 'o' 피부, '+' 볼·빛). 배경 없음(투명), 검정·흰색 2색. 색은 style.css의 --px-* =====
 const FACES = {
   f01:["....########....","...##########...","...##########...","...##########...","..############..","..##oooooooo##..","..#oooooooooo#..","..#oo#oooo#oo#..",".#ooo#oooo#ooo#.",".#oooooooooooo#.","..#oooooooooo#..","..#ooo#oo#ooo#..","..#oooo##oooo#..","...#oooooooo#...","....########....","................"],
   f02:["....########....","...##########...","...##########...","...##########...","..############..","..##oooo######..","..#ooooooooo##..","..#oo#oooo#oo#..",".#ooo#oooo#ooo#.",".#oooooooooooo#.","..#oo#oooo#oo#..","..#ooo####ooo#..","..#oooooooooo#..","...#oooooooo#...","....########....","................"],

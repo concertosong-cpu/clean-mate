@@ -694,8 +694,8 @@ select.join-input{ appearance:none; -webkit-appearance:none; }
   --glass:blur(18px) saturate(140%);
   --tile-1:var(--select); --tile-2:var(--worked); --tile-3:var(--accent-soft);
   --chev:"→";
-  /* 픽셀 얼굴 전용 3색 (게임보이 녹색 계열 — 테마와 상관없이 고정, 배경은 투명) */
-  --px-dark:#1C2E24; --px-light:#E4F2C8; --px-mid:#B8D898;
+  /* 픽셀 얼굴 전용 2색: 검정 선 + 흰 얼굴 (테마와 상관없이 고정, 배경은 투명). 볼·빛 칸도 흰색 */
+  --px-dark:#212121; --px-light:#FFFFFF; --px-mid:#FFFFFF;
   --toast-bg:var(--strong); --on-toast:var(--on-strong);
   /* 참고 팔레트의 리넨 종이 질감 — 아주 옅게 */
   --texture:

@@ -310,6 +310,10 @@ Object.assign(i18n.en, {
   jobExamples:[["06:00","Woolworths Toowong Village","Regular clean · shop floor and washrooms · Toowong QLD 4066"],["10:30","Coles Indooroopilly","Regular clean · staff room and storage · Indooroopilly QLD 4068"],["14:00","ALDI Sunnybank Hills","Regular clean · entrance and checkouts · Sunnybank Hills QLD 4109"]]
 });
 
+// ===== v8.1 픽셀 얼굴 문구 =====
+Object.assign(i18n.ko, { faceTitle:"내 얼굴", faceNote:"프로필에 쓸 얼굴을 고르십시오. 고른 얼굴은 이 기기에 저장됩니다.", faceSaved:"얼굴을 바꿨습니다.", faceAria:"얼굴 {n}", homeAvatarAria:"내 프로필" });
+Object.assign(i18n.en, { faceTitle:"My face", faceNote:"Choose a face for your profile. It is saved on this device.", faceSaved:"Face updated.", faceAria:"Face {n}", homeAvatarAria:"My profile" });
+
 // ===== v7 테마 선택 문구 =====
 Object.assign(i18n.ko, {
   themeLabel:"테마", themeNote:"테마는 이 기기에만 적용됩니다.",
@@ -683,10 +687,11 @@ function goTo(name){
   if (name === "admin-log") renderActivityLog();
   if (name === "chat") renderChat();
   if (name === "admin-staff") renderCrewStatusList();
-  if (name === "profile") loadProfileForm();
-  if (name === "home"){ renderHome(); renderInductionBanner(); refreshGpsStatus(); }
+  if (name === "profile"){ loadProfileForm(); renderAvatars(); renderFacePicker(); }
+  if (name === "home"){ renderHome(); renderInductionBanner(); refreshGpsStatus(); renderAvatars(); }
   if (name === "admin-checklist") renderAdminChecklist();
   if (name === "admin-sites") renderSiteList();
+  if (name === "menu") renderAvatars();
   if (name === "menu"){ const n = document.getElementById("menu-profile-name"), su = document.getElementById("menu-profile-sub"); if (n) n.textContent = MY_NAME || "-"; if (su) su.textContent = (MY_SITE ? MY_SITE + " · " : "") + "CleanMate " + (langIsKo ? "크루" : "crew"); }
   if (name === "admin-login"){
     const input = document.getElementById("admin-password-input");
@@ -1212,6 +1217,60 @@ function closeMenu(){ document.getElementById("quick-menu-overlay").classList.re
 function closeMenuIfBg(e){ if (e.target.id === "quick-menu-overlay") closeMenu(); }
 
 function openSettings(){ goTo("settings"); refreshGpsStatus(); const el = document.getElementById("settings-site-name"); if (el) el.textContent = MY_SITE || T("noSiteShort"); }
+
+// ===== 픽셀 얼굴 (v8.1) — 16x16 자체 제작 그림 ('#' 선·머리, 'o' 피부, '+' 볼·빛). 색은 style.css의 --px-* =====
+const FACES = {
+  f01:["....########....","...##########...","...##########...","...##########...","..############..","..##oooooooo##..","..#oooooooooo#..","..#oo#oooo#oo#..",".#ooo#oooo#ooo#.",".#oooooooooooo#.","..#oooooooooo#..","..#ooo#oo#ooo#..","..#oooo##oooo#..","...#oooooooo#...","....########....","................"],
+  f02:["....########....","...##########...","...##########...","...##########...","..############..","..##oooo######..","..#ooooooooo##..","..#oo#oooo#oo#..",".#ooo#oooo#ooo#.",".#oooooooooooo#.","..#oo#oooo#oo#..","..#ooo####ooo#..","..#oooooooooo#..","...#oooooooo#...","....########....","................"],
+  f03:["....#...#...#...","...#.#.#.#.#....","...##########...","...##########...","..############..","..##oooooooo##..","..#oooooooooo#..","..#oo#oooo#oo#..",".#oo#o#oo#o#oo#.",".#oooooooooooo#.","..#oooooooooo#..","..#ooo####ooo#..","..#oooo##oooo#..","...#oooooooo#...","....########....","................"],
+  f04:["....########....","...##########...","...##########...","...##########...","..############..","..######oooo##..","..##oooooooo##..","..##o#oooo#o##..","..##o#oooo#o###.","..##oooooooo###.","..##+oooooo+##..","..##oo#oo#oo##..","..#oooo##oooo#..","...#oooooooo#...","....########....","................"],
+  f05:["................","................","....########....","...#oo++oooo#...","..#oo+ooooooo#..","..#oooooooooo#..","..#oooooooooo#..","..############..",".#o#o##oo##o#o#.",".#o####oo####o#.","..#oooooooooo#..","..#oooo##oooo#..","..#oooooooooo#..","...#oooooooo#...","....########....","................"],
+  f06:["......####......","......####......","...##########...","...##########...","..############..","..#####ooooo##..","..#oooooooooo#..","..#oo#ooooooo#..",".#ooo#ooo###oo#.",".#oooooooooooo#.","..#o+oooooo+o#..","..#ooo#oo#ooo#..","..#oooo##oooo#..","...#oooooooo#...","....########....","................"],
+  f07:["...#.#.#.#.#....","..############..","..############..","..############..","..##o##o##o###..","..#oooooooooo#..","..#oooooooooo#..","..#oo#oooo#oo#..",".#ooo#oooo#ooo#.",".#oooooooooooo#.","..#oooooooooo#..","..#ooo####ooo#..","..#oooo##oooo#..","...#oooooooo#...","....########....","................"],
+  f08:["....########....","...##########...","...##oooo####...","...##########...","..#############.","..#oooooooooo#..","..#oooooooooo#..","..#oo#oooo#oo#..",".#ooo#oooo#ooo#.",".#oooooooooooo#.","..#oooooooooo#..","..#ooo#oo#ooo#..","..#oooo##oooo#..","...#oooooooo#...","....########....","................"],
+  f09:["....########....","...##########...","...##########...","...##########...","..############..",".##oooooo######.",".##oooooooooo##.",".##oo#oooo#oo##.",".##o#o#oo#o#o##.",".##oooooooooo##.",".##oooooooooo##.",".##ooo#oo#ooo##.",".##oooo##oooo##.",".###oooooooo###.",".##.########.##.","................"],
+  f10:["................","................","....########....","...##########...","..#o#o#o#o#oo#..","..#oooooooooo#..","..#oooooooooo#..","..#oooooooooo#..",".#ooo#oooo#ooo#.",".#oooooooooooo#.","..#oo#oooo#oo#..","..#ooo####ooo#..","..#oooooooooo#..","...#oooooooo#...","....########....","................"],
+  f11:["....########....","...##########...","...##########...","...##########...","..############..","..##oooooooo##..","..#oooooooooo#..","..############..",".#o#o##oo##o#o#.",".#o####oo####o#.","..#oooooooooo#..","..####oooo####..","..############..","....########....","....########....","................"],
+  f12:["...#.#.#.#.#....","..############..","..############..","..############..","..##o##o##o###..","..#oooooooooo#..","..#oooooooooo#..","..#oooooooooo#..",".#ooo#oooo#ooo#.",".#oooooooooooo#.","..############..","..####oooo####..","..############..","....########....","....########....","................"]
+};
+function faceKey(){ return "face:" + (MY_NAME || "_"); }   // 크루마다 따로 (같은 폰을 여럿이 써도 섞이지 않게)
+function myFace(){ const f = lsGet(faceKey()); return FACES[f] ? f : null; }
+function faceSVG(id){
+  const g = FACES[id]; if (!g) return "";
+  const cls = { "#": "px-d", "o": "px-l", "+": "px-m" };
+  let r = "";
+  g.forEach((row, y) => {
+    let x = 0;
+    while (x < row.length){
+      const ch = row[x]; let w = 1;
+      while (x + w < row.length && row[x + w] === ch) w++;
+      if (cls[ch]) r += `<rect class="${cls[ch]}" x="${x}" y="${y}" width="${w}" height="1"/>`;
+      x += w;
+    }
+  });
+  return `<svg class="pixel-face" viewBox="-1 -1 18 18" shape-rendering="crispEdges" aria-hidden="true"><rect class="px-bg" x="-1" y="-1" width="18" height="18"/>${r}</svg>`;
+}
+function renderAvatars(){
+  const f = myFace(), initial = (MY_NAME || "C").trim().charAt(0).toUpperCase();
+  [["menu-avatar", true], ["home-avatar", false], ["face-current", false]].forEach(([id, letter]) => {
+    const el = document.getElementById(id); if (!el) return;
+    el.classList.toggle("has-face", !!f);
+    el.innerHTML = f ? faceSVG(f) : (letter || id === "home-avatar" ? escapeHtml(initial) : "");
+  });
+  const ha = document.getElementById("home-avatar"); if (ha) ha.setAttribute("aria-label", T("homeAvatarAria"));
+}
+function renderFacePicker(){
+  const grid = document.getElementById("face-grid"); if (!grid) return;
+  const cur = myFace();
+  grid.innerHTML = Object.keys(FACES).map((id, i) =>
+    `<button class="face-opt${id === cur ? " active" : ""}" onclick="chooseFace('${id}')" aria-label="${fmtT("faceAria", { n: i + 1 })}" aria-pressed="${id === cur}">${faceSVG(id)}</button>`).join("");
+}
+function chooseFace(id){
+  if (!FACES[id]) return;
+  lsSet(faceKey(), id);
+  renderAvatars(); renderFacePicker();
+  toast(T("faceSaved"));
+}
 
 // ===== 테마 (색 조합) — 이 기기에만 저장. 색 값은 style.css의 [data-palette] 블록에만 있음 =====
 const THEMES = ["urban", "riviera", "gelato", "viridian", "pine"];

@@ -694,6 +694,8 @@ select.join-input{ appearance:none; -webkit-appearance:none; }
   --glass:blur(18px) saturate(140%);
   --tile-1:var(--select); --tile-2:var(--worked); --tile-3:var(--accent-soft);
   --chev:"→";
+  /* 픽셀 얼굴 전용 4색 (게임보이 녹색 계열 — 테마와 상관없이 고정) */
+  --px-bg:#86BB6E; --px-dark:#1C2E24; --px-light:#E4F2C8; --px-mid:#B8D898;
   --toast-bg:var(--strong); --on-toast:var(--on-strong);
   /* 참고 팔레트의 리넨 종이 질감 — 아주 옅게 */
   --texture:
@@ -1242,3 +1244,22 @@ h1{ font-weight:500; font-size:19px; letter-spacing:-0.3px; color:var(--on-bg); 
 .theme-grid .theme-opt[data-theme-opt="urban"]{ grid-column:1 / -1; }
 /* 흰 바탕 위 작은 점은 바닐라보다 한 단계 진하게 */
 [data-palette="urban"] .dot.overtime{ background:#C8CA4E; }
+
+/* ---------- 픽셀 얼굴 (v8.1) ---------- */
+.pixel-face{ display:block; width:100%; height:100%; }
+.px-bg{ fill:var(--px-bg); } .px-d{ fill:var(--px-dark); } .px-l{ fill:var(--px-light); } .px-m{ fill:var(--px-mid); }
+.face-badge.has-face{ background:var(--px-bg); padding:0; overflow:hidden; border-radius:12px; }
+.home-avatar{
+  width:50px; height:50px; flex:none; padding:0; border:none; border-radius:16px; overflow:hidden;
+  background:var(--strong); color:var(--on-strong); font-size:18px; font-weight:600; cursor:pointer;
+}
+.home-avatar.has-face{ background:var(--px-bg); }
+.home-avatar:focus-visible, .face-opt:focus-visible{ outline:3px solid var(--strong); outline-offset:2px; }
+.face-pick-head{ display:flex; gap:14px; align-items:center; margin:6px 0 14px; }
+.face-current{ width:84px; height:84px; flex:none; border-radius:22px; overflow:hidden; background:var(--card-alt); }
+.face-current.has-face{ background:var(--px-bg); }
+.face-grid{ display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; margin-bottom:18px; }
+.face-opt{ aspect-ratio:1 / 1; width:100%; padding:0; border:none; border-radius:18px; overflow:hidden; background:var(--px-bg); cursor:pointer; transition:transform .12s ease; }
+.face-opt:active{ transform:scale(.96); }
+.face-opt.active{ box-shadow:0 0 0 3px var(--bg), 0 0 0 6px var(--strong); }
+@media (prefers-reduced-motion: reduce){ .face-opt{ transition:none; } }

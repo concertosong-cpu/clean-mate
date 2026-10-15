@@ -109,7 +109,7 @@
       <div class="greeting" id="greeting-text">Hello</div>
       <div class="greeting-sub" id="today-date"></div>
     </div>
-    <span></span>
+    <button class="home-avatar" id="home-avatar" onclick="goTo('profile')" aria-label="My profile"></button>
   </div>
 
   <div class="notice-pin" id="notice-pin" style="display:none;"></div>
@@ -265,6 +265,13 @@
     <h1 data-i18n="profileTitle">My profile</h1>
     <span></span>
   </div>
+
+  <div class="face-pick-head">
+    <div class="face-current" id="face-current"></div>
+    <div><div class="section-title" style="margin:0 0 4px;" data-i18n="faceTitle">My face</div>
+    <div class="settings-note" data-i18n="faceNote">Choose a face for your profile. It is saved on this device.</div></div>
+  </div>
+  <div class="face-grid" id="face-grid"></div>
 
   <div class="section-title" data-i18n="profileInfoLabel">Profile details</div>
   <input class="join-input" id="pf-name" data-i18n-ph="phName" placeholder="Name">

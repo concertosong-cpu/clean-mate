@@ -551,7 +551,7 @@ select.join-input{ appearance:none; -webkit-appearance:none; }
 
 
 /* =====================================================================
-   v7 테마 스킨 — 색 조합 4종(Riviera·Gelato·Viridian·Pine) + 유리 카드
+   v7 스킨 — v8.2부터 어반(Urban) 한 가지 색만 씁니다
    색은 아래 [data-palette] 블록에만 있습니다. 화면 규칙은 변수만 씁니다.
    모양: 반투명 유리 카드, 큰 둥근 모서리, 떠 있는 알약 메뉴, 가는 큰 숫자
    영문 서체 Urbanist → Montserrat → Pretendard(한글)
@@ -586,100 +586,6 @@ select.join-input{ appearance:none; -webkit-appearance:none; }
   --nav-bg:#FFFFFF;
   --meta:#F6F5FA;
   --tile-1:#D8DFE9; --tile-2:#CFDECA; --tile-3:#EFF0A3;
-}
-
-/* ---------- Riviera — Muslin #F1EFE6 바탕 · Sandstone 보조 · Terracotta 포인트 · Clove 버튼 ---------- */
-:root[data-palette="riviera"]{
-  --bg:#F1EFE6;
-  --bg-art:radial-gradient(90% 45% at 100% 0%, rgba(220,207,184,.45) 0%, rgba(220,207,184,0) 65%);
-  --on-bg:#3A2F2A; --on-bg-mute:#685B53;
-  --card:rgba(255,253,248,.90); --card-solid:#FFFDF8; --card-edge:rgba(255,255,255,.90);
-  --card-alt:#F3EEE4; --worked:#E6DCCB; --select:#E8DFCF;
-  --ink:#3A2F2A; --ink-soft:#54473F; --ink-mute:#685B53; --line:rgba(83,68,61,.10);
-  --accent:#AD7556; --accent-soft:#F2E1D6; --accent-ink:#8A4F31;
-  --strong:#53443D; --on-strong:#FBF8F1;
-  --chip:#E6DCCB; --on-chip:#4A3B33;
-  --tint:rgba(255,253,248,.72);
-  --link:#3F6380; --ok-dot:#7A9CB3; --warn:#9A4524; --ok-on-bg:#3F6380;
-  --soft-warn-bg:#F2DDD2; --soft-warn-ink:#7A3A1E;
-  --dot-note:#7A9CB3; --dot-issue:#C0583A; --dot-personal:#C9A27A;
-  --scrim:rgba(58,47,42,.30);
-  --shadow-card:0 8px 24px rgba(83,68,61,.06), 0 1px 2px rgba(83,68,61,.05);
-  --shadow-float:0 12px 30px rgba(83,68,61,.14);
-  --nav-bg:rgba(255,253,248,.92);
-  --meta:#F1EFE6;
-}
-
-/* ---------- Gelato — Lemon #EFE8D8 바탕 · Mint 보조 · Strawberry 포인트 · Chocolate 버튼 ---------- */
-:root[data-palette="gelato"]{
-  --bg:#EFE8D8;
-  --bg-art:
-    radial-gradient(90% 45% at 100% 0%, rgba(229,173,168,.18) 0%, rgba(229,173,168,0) 65%),
-    radial-gradient(70% 40% at 0% 100%, rgba(216,215,178,.30) 0%, rgba(216,215,178,0) 65%);
-  --on-bg:#3B3023; --on-bg-mute:#64564A;
-  --card:rgba(255,252,246,.90); --card-solid:#FFFCF6; --card-edge:rgba(255,255,255,.90);
-  --card-alt:#F5F0E6; --worked:#E4E3C8; --select:#ECE3D3;
-  --ink:#3B3023; --ink-soft:#54473A; --ink-mute:#685A4C; --line:rgba(114,92,63,.10);
-  --accent:#E5ADA8; --accent-soft:#F7E1DE; --accent-ink:#9C4740;
-  --strong:#725C3F; --on-strong:#FFFCF6;
-  --chip:#E4E3C8; --on-chip:#45442A;
-  --tint:rgba(255,252,246,.72);
-  --link:#725C3F; --ok-dot:#B7B57E; --warn:#A13F37; --ok-on-bg:#5A5A2C;
-  --soft-warn-bg:#F5D9D5; --soft-warn-ink:#7C2F29;
-  --dot-note:#B7B57E; --dot-issue:#C8645C; --dot-personal:#D0A77B;
-  --scrim:rgba(59,48,35,.30);
-  --shadow-card:0 8px 24px rgba(114,92,63,.06), 0 1px 2px rgba(114,92,63,.05);
-  --shadow-float:0 12px 30px rgba(114,92,63,.14);
-  --nav-bg:rgba(255,252,246,.92);
-  --meta:#EFE8D8;
-}
-
-/* ---------- Viridian — Shell #F7F5F1 바탕 · Sky·Stone 보조 · Honeydew 포인트 · Viridian 버튼 ---------- */
-:root[data-palette="viridian"]{
-  --bg:#F7F5F1;
-  --bg-art:
-    radial-gradient(90% 45% at 100% 0%, rgba(213,227,232,.55) 0%, rgba(213,227,232,0) 65%),
-    radial-gradient(70% 40% at 0% 100%, rgba(224,220,209,.55) 0%, rgba(224,220,209,0) 65%);
-  --on-bg:#26332F; --on-bg-mute:#53605B;
-  --card:rgba(255,255,255,.90); --card-solid:#FFFFFF; --card-edge:rgba(255,255,255,.95);
-  --card-alt:#F1EFEA; --worked:#DDE8EC; --select:#E6E3DA;
-  --ink:#26332F; --ink-soft:#3D4A46; --ink-mute:#56625E; --line:rgba(52,73,69,.10);
-  --accent:#C9C78A; --accent-soft:#ECEBCB; --accent-ink:#56551F;
-  --strong:#344945; --on-strong:#F7F5F1;
-  --chip:#DDE8EC; --on-chip:#26414A;
-  --tint:rgba(255,255,255,.72);
-  --link:#344945; --ok-dot:#7E9C93; --warn:#974A31; --ok-on-bg:#2F4D45;
-  --soft-warn-bg:#EED9CF; --soft-warn-ink:#72402E;
-  --dot-note:#9EBBC5; --dot-issue:#C47E62; --dot-personal:#BDBB7A;
-  --scrim:rgba(38,51,47,.30);
-  --shadow-card:0 8px 24px rgba(52,73,69,.06), 0 1px 2px rgba(52,73,69,.05);
-  --shadow-float:0 12px 30px rgba(52,73,69,.14);
-  --nav-bg:rgba(255,255,255,.92);
-  --meta:#F7F5F1;
-}
-
-/* ---------- Pine — Cream #F0F3E2 바탕 · Sky 보조 · Grass 포인트 · Pine 버튼 · Espresso 글자 ---------- */
-:root[data-palette="pine"]{
-  --bg:#F0F3E2;
-  --bg-art:
-    radial-gradient(90% 45% at 100% 0%, rgba(182,212,231,.35) 0%, rgba(182,212,231,0) 65%),
-    radial-gradient(70% 40% at 0% 100%, rgba(218,219,205,.60) 0%, rgba(218,219,205,0) 65%);
-  --on-bg:#38312A; --on-bg-mute:#5C544B;
-  --card:rgba(255,255,253,.90); --card-solid:#FFFFFD; --card-edge:rgba(255,255,255,.95);
-  --card-alt:#F2F4EA; --worked:#DCEAF2; --select:#E3E5D8;
-  --ink:#38312A; --ink-soft:#4C443B; --ink-mute:#5F574E; --line:rgba(56,49,42,.10);
-  --accent:#4F915B; --accent-soft:#DCEBDC; --accent-ink:#2C6838;
-  --strong:#175A44; --on-strong:#F4F6EA;
-  --chip:#DCEAF2; --on-chip:#1F3D57;
-  --tint:rgba(255,255,253,.72);
-  --link:#3C6690; --ok-dot:#4F915B; --warn:#974A2C; --ok-on-bg:#175A44;
-  --soft-warn-bg:#EED9CF; --soft-warn-ink:#72402E;
-  --dot-note:#618CB5; --dot-issue:#C9704F; --dot-personal:#8FB7D2;
-  --scrim:rgba(56,49,42,.30);
-  --shadow-card:0 8px 24px rgba(23,90,68,.06), 0 1px 2px rgba(23,90,68,.05);
-  --shadow-float:0 12px 30px rgba(23,90,68,.14);
-  --nav-bg:rgba(255,255,253,.92);
-  --meta:#F0F3E2;
 }
 
 /* ---------- 이전 변수 이름 → 테마 변수 (앞쪽 규칙·app.js 호환) ---------- */
@@ -720,7 +626,7 @@ body::after{ display:none; }
 /* 유리 카드 공통 */
 .clock-card, .job-card, .hours-card, .rank-list-card, .day-detail, .chat-bubble, .colleague-row,
 .quick-item, .admin-stat-card, .menu-row, .profile-card, .menu-profile, .calendar-grid,
-.calendar-card, .cal-wrap, .navbar, .chat-input-row, .theme-opt{
+.calendar-card, .cal-wrap, .navbar, .chat-input-row{
   -webkit-backdrop-filter:var(--glass); backdrop-filter:var(--glass);
 }
 
@@ -1092,29 +998,6 @@ h1{ font-weight:500; font-size:19px; letter-spacing:-0.3px; color:var(--on-bg); 
 }
 #admin-approvals .job-card, #join-approvals .job-card{ flex-wrap:wrap; row-gap:8px; }
 
-/* ---------- 테마 선택 (설정) ---------- */
-.theme-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-.theme-opt{
-  display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-start; gap:12px;
-  background:var(--card); color:var(--ink); border:1px solid var(--card-edge); border-radius:22px;
-  padding:14px 14px 13px; box-shadow:var(--shadow-card); cursor:pointer; text-align:left;
-}
-.theme-opt.active{ box-shadow:0 0 0 2px var(--strong), var(--shadow-card); }
-.theme-swatch{ display:flex; }
-.theme-swatch i{
-  width:26px; height:26px; border-radius:50%; display:block; margin-right:-7px;
-  border:2px solid var(--card-solid); box-shadow:0 0 0 1px var(--line);
-}
-.theme-name{ font-size:15px; font-weight:500; color:var(--ink); letter-spacing:-0.2px; display:flex; width:100%; justify-content:space-between; align-items:center; }
-.theme-desc{ font-size:11px; color:var(--ink-mute); line-height:1.4; margin-top:-8px; word-break:keep-all; }
-.theme-check{ width:20px; height:20px; border-radius:50%; background:var(--strong); color:var(--on-strong); font-size:11px; display:none; align-items:center; justify-content:center; }
-.theme-opt.active .theme-check{ display:flex; }
-/* 견본 색 — 바탕 · 보조 · 포인트 · 버튼 */
-.sw-urban i:nth-child(1){ background:#F6F5FA; } .sw-urban i:nth-child(2){ background:#D8DFE9; } .sw-urban i:nth-child(3){ background:#CFDECA; } .sw-urban i:nth-child(4){ background:#EFF0A3; } .sw-urban i:nth-child(5){ background:#212121; }
-.sw-riviera i:nth-child(1){ background:#F1EFE6; } .sw-riviera i:nth-child(2){ background:#DCCFB8; } .sw-riviera i:nth-child(3){ background:#AD7556; } .sw-riviera i:nth-child(4){ background:#53443D; }
-.sw-gelato i:nth-child(1){ background:#EFE8D8; } .sw-gelato i:nth-child(2){ background:#D8D7B2; } .sw-gelato i:nth-child(3){ background:#E5ADA8; } .sw-gelato i:nth-child(4){ background:#725C3F; }
-.sw-viridian i:nth-child(1){ background:#F7F5F1; } .sw-viridian i:nth-child(2){ background:#D5E3E8; } .sw-viridian i:nth-child(3){ background:#E4E3BC; } .sw-viridian i:nth-child(4){ background:#344945; }
-.sw-pine i:nth-child(1){ background:#F0F3E2; } .sw-pine i:nth-child(2){ background:#B6D4E7; } .sw-pine i:nth-child(3){ background:#4F915B; } .sw-pine i:nth-child(4){ background:#175A44; }
 
 /* 움직임을 줄이도록 설정한 기기 */
 @media (prefers-reduced-motion: reduce){ body{ transition:none; } }
@@ -1142,7 +1025,6 @@ h1{ font-weight:500; font-size:19px; letter-spacing:-0.3px; color:var(--on-bg); 
 
 /* 출퇴근 카드 = Alice Blue 타일 */
 [data-palette="urban"] .clock-card{ background:var(--tile-1); border:none; box-shadow:none; position:relative; }
-[data-palette="urban"] .clock-card::after{ content:"↗"; position:absolute; top:18px; right:20px; font-size:20px; color:var(--ink); font-family:'AppDisplay',sans-serif; }
 [data-palette="urban"] .clock-time{ font-weight:600; letter-spacing:-1.5px; }
 [data-palette="urban"] .clock-btn{ border-radius:999px; background:var(--strong); color:var(--on-strong); }
 [data-palette="urban"] .clock-btn.working, [data-palette="urban"] .clock-btn.on{ background:var(--tile-3); color:var(--ink); box-shadow:inset 0 0 0 1.5px var(--strong); }
@@ -1153,12 +1035,9 @@ h1{ font-weight:500; font-size:19px; letter-spacing:-0.3px; color:var(--on-bg); 
 [data-palette="urban"] .week-day.today .num, [data-palette="urban"] .week-day.today.worked .num{ background:var(--strong); color:var(--on-strong); }
 [data-palette="urban"] .week-day.worked .num{ background:var(--tile-2); color:var(--ink); }
 
-/* 빠른 실행 = 파스텔 타일 + 검정 원 아이콘 */
+/* 빠른 실행 = 흰 카드 4칸 같은 색 + 검정 원 아이콘 (색은 '근무 중' 같은 상태에만 씀) */
 [data-palette="urban"] .quick-item{ border:none; box-shadow:none; border-radius:24px; position:relative; padding:16px 6px 12px; }
-[data-palette="urban"] .quick-item:nth-child(1){ background:var(--tile-2); }
-[data-palette="urban"] .quick-item:nth-child(2){ background:var(--tile-3); }
-[data-palette="urban"] .quick-item:nth-child(3){ background:var(--tile-1); }
-[data-palette="urban"] .quick-item:nth-child(4){ background:var(--card); }
+[data-palette="urban"] .quick-item{ background:var(--card); }
 [data-palette="urban"] .quick-icon{ background:var(--strong) !important; }
 [data-palette="urban"] .quick-icon svg{ stroke:var(--on-strong) !important; }
 [data-palette="urban"] .quick-label{ color:var(--ink); font-weight:600; }
@@ -1238,10 +1117,6 @@ h1{ font-weight:500; font-size:19px; letter-spacing:-0.3px; color:var(--on-bg); 
 [data-palette="urban"] .chat-send-btn{ background:var(--strong); color:var(--on-strong); }
 [data-palette="urban"] .chat-bubble.me{ background:var(--tile-1); }
 [data-palette="urban"] .chat-input-row{ border:none; }
-[data-palette="urban"] .theme-opt{ border:none; }
-[data-palette="urban"] .theme-opt.active{ box-shadow:0 0 0 2px var(--strong); }
-/* 테마 카드 5개: 어반을 맨 위 한 줄로 크게 (나머지 4개는 2×2) */
-.theme-grid .theme-opt[data-theme-opt="urban"]{ grid-column:1 / -1; }
 /* 흰 바탕 위 작은 점은 바닐라보다 한 단계 진하게 */
 [data-palette="urban"] .dot.overtime{ background:#C8CA4E; }
 
@@ -1263,3 +1138,17 @@ h1{ font-weight:500; font-size:19px; letter-spacing:-0.3px; color:var(--on-bg); 
 .face-opt:active{ transform:scale(.96); }
 .face-opt.active{ box-shadow:0 0 0 3px var(--bg), 0 0 0 6px var(--strong); }
 @media (prefers-reduced-motion: reduce){ .face-opt{ transition:none; } }
+
+/* ---------- v8.2 디자인 정리 ---------- */
+/* 알림(토스트): 아래 메뉴가 없는 화면에서는 위쪽에 — 저장 버튼·채팅 입력창을 가리지 않음 */
+body.no-nav .app-toast{ top:calc(14px + env(safe-area-inset-top)); bottom:auto; transform:translate(-50%,-24px); }
+body.no-nav .app-toast.show{ transform:translate(-50%,0); }
+.face-status{ min-height:18px; margin-top:6px; font-size:13px; font-weight:600; color:var(--ok-on-bg); }
+
+/* 작은 글자 최소 13px — 바깥(햇빛)에서도 읽히게. 요일·메뉴 이름처럼 칸이 좁은 곳은 12px */
+.quick-label, .cal-legend, .cal-hint, .hours-label, .hours-k, .rank-list-title, .rank-hint, .gps-line,
+.job-status, .job-example-label, .admin-stat-label, .chat-bubble-time, .colleague-days, .ev-meta,
+.day-note-k, .join-label, .sheet-hint, .login-title, .gps-pill, .settings-note, .greeting-sub, .job-meta,
+.job-checklist-link, .site-label, .clock-record, .profile-sub, .colleague-time, .join-note, .login-sub,
+.login-caption, .export-btn, .clock-status{ font-size:13px !important; }
+.week-day .dow, .cal-dow, .nav-item, .or-divider{ font-size:12px !important; }

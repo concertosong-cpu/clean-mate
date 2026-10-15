@@ -240,7 +240,7 @@ const i18n = {
     colleagueSchedule: "동료 스케줄",
     groupMyInfo: "내 정보",
     sos: "SOS",
-    settingsRow: "설정 (언어·테마·시간대)",
+    settingsRow: "설정 (언어·시간대)",
     groupContact: "문의",
     chatWithAdmin: "관리자와 채팅",
     chatTitle: "관리자와 채팅",
@@ -287,7 +287,7 @@ const i18n = {
     colleagueSchedule: "Team schedule",
     groupMyInfo: "My info",
     sos: "SOS",
-    settingsRow: "Settings (language · theme · time zone)",
+    settingsRow: "Settings (language · time zone)",
     groupContact: "Contact",
     chatWithAdmin: "Chat with admin",
     chatTitle: "Chat with admin",
@@ -311,26 +311,9 @@ Object.assign(i18n.en, {
 });
 
 // ===== v8.1 픽셀 얼굴 문구 =====
-Object.assign(i18n.ko, { faceTitle:"내 얼굴", faceNote:"프로필에 쓸 얼굴을 고르십시오. 고른 얼굴은 이 기기에 저장됩니다.", faceSaved:"얼굴을 바꿨습니다.", faceAria:"얼굴 {n}", homeAvatarAria:"내 프로필" });
-Object.assign(i18n.en, { faceTitle:"My face", faceNote:"Choose a face for your profile. It is saved on this device.", faceSaved:"Face updated.", faceAria:"Face {n}", homeAvatarAria:"My profile" });
+Object.assign(i18n.ko, { faceTitle:"내 얼굴", faceNote:"프로필에 쓸 얼굴을 고르십시오. 고른 얼굴은 이 기기에 저장됩니다.", faceSaved:"저장했습니다.", faceAria:"얼굴 {n}", homeAvatarAria:"내 프로필" });
+Object.assign(i18n.en, { faceTitle:"My face", faceNote:"Choose a face for your profile. It is saved on this device.", faceSaved:"Saved.", faceAria:"Face {n}", homeAvatarAria:"My profile" });
 
-// ===== v7 테마 선택 문구 =====
-Object.assign(i18n.ko, {
-  themeLabel:"테마", themeNote:"테마는 이 기기에만 적용됩니다.",
-  themeUrban:"어반", themeUrbanDesc:"고스트 화이트·파스텔 타일·블랙",
-  themeRiviera:"리비에라", themeRivieraDesc:"머슬린·테라코타·클로브",
-  themeGelato:"젤라토", themeGelatoDesc:"레몬·딸기·초콜릿",
-  themeViridian:"비리디언", themeViridianDesc:"셸·허니듀·비리디언",
-  themePine:"파인", themePineDesc:"크림·그래스·파인"
-});
-Object.assign(i18n.en, {
-  themeLabel:"Theme", themeNote:"The theme applies to this device only.",
-  themeUrban:"Urban", themeUrbanDesc:"Ghost white, pastel tiles and black",
-  themeRiviera:"Riviera", themeRivieraDesc:"Muslin, terracotta and clove",
-  themeGelato:"Gelato", themeGelatoDesc:"Lemon, strawberry and chocolate",
-  themeViridian:"Viridian", themeViridianDesc:"Shell, honeydew and viridian",
-  themePine:"Pine", themePineDesc:"Cream, grass and pine"
-});
 
 // ===== v5.1 전체 번역 키 (모든 화면 영어 기본 + 한국어 옵션) =====
 Object.assign(i18n.ko, {
@@ -657,6 +640,8 @@ let clockInterval = null;
 function goTo(name){
   views.forEach(v => document.getElementById("view-" + v).classList.remove("active"));
   document.getElementById("view-" + name).classList.add("active");
+  // 아래 메뉴가 없는 화면: 알림(토스트)을 위쪽에 띄워 저장 버튼·입력창을 가리지 않게
+  document.body.classList.toggle("no-nav", ["role","admin-login","settings","join","chat","profile"].includes(name));
 
   const nav = document.getElementById("navbar");
   const adminNav = document.getElementById("admin-navbar");
@@ -1218,7 +1203,7 @@ function closeMenuIfBg(e){ if (e.target.id === "quick-menu-overlay") closeMenu()
 
 function openSettings(){ goTo("settings"); refreshGpsStatus(); const el = document.getElementById("settings-site-name"); if (el) el.textContent = MY_SITE || T("noSiteShort"); }
 
-// ===== 픽셀 얼굴 (v8.1) — 16x16 자체 제작 그림 ('#' 선·머리, 'o' 피부, '+' 볼·빛). 배경 없음(투명), 검정·흰색 2색. 색은 style.css의 --px-* =====
+// ===== 픽셀 얼굴 (v8.1, v8.2에 4개 추가 → 16개) — 16x16 자체 제작 그림 ('#' 선·머리, 'o' 피부, '+' 볼·빛). 배경 없음(투명), 검정·흰색 2색. 색은 style.css의 --px-* =====
 const FACES = {
   f01:["....########....","...##########...","...##########...","...##########...","..############..","..##oooooooo##..","..#oooooooooo#..","..#oo#oooo#oo#..",".#ooo#oooo#ooo#.",".#oooooooooooo#.","..#oooooooooo#..","..#ooo#oo#ooo#..","..#oooo##oooo#..","...#oooooooo#...","....########....","................"],
   f02:["....########....","...##########...","...##########...","...##########...","..############..","..##oooo######..","..#ooooooooo##..","..#oo#oooo#oo#..",".#ooo#oooo#ooo#.",".#oooooooooooo#.","..#oo#oooo#oo#..","..#ooo####ooo#..","..#oooooooooo#..","...#oooooooo#...","....########....","................"],
@@ -1231,7 +1216,11 @@ const FACES = {
   f09:["....########....","...##########...","...##########...","...##########...","..############..",".##oooooo######.",".##oooooooooo##.",".##oo#oooo#oo##.",".##o#o#oo#o#o##.",".##oooooooooo##.",".##oooooooooo##.",".##ooo#oo#ooo##.",".##oooo##oooo##.",".###oooooooo###.",".##.########.##.","................"],
   f10:["................","................","....########....","...##########...","..#o#o#o#o#oo#..","..#oooooooooo#..","..#oooooooooo#..","..#oooooooooo#..",".#ooo#oooo#ooo#.",".#oooooooooooo#.","..#oo#oooo#oo#..","..#ooo####ooo#..","..#oooooooooo#..","...#oooooooo#...","....########....","................"],
   f11:["....########....","...##########...","...##########...","...##########...","..############..","..##oooooooo##..","..#oooooooooo#..","..############..",".#o#o##oo##o#o#.",".#o####oo####o#.","..#oooooooooo#..","..####oooo####..","..############..","....########....","....########....","................"],
-  f12:["...#.#.#.#.#....","..############..","..############..","..############..","..##o##o##o###..","..#oooooooooo#..","..#oooooooooo#..","..#oooooooooo#..",".#ooo#oooo#ooo#.",".#oooooooooooo#.","..############..","..####oooo####..","..############..","....########....","....########....","................"]
+  f12:["...#.#.#.#.#....","..############..","..############..","..############..","..##o##o##o###..","..#oooooooooo#..","..#oooooooooo#..","..#oooooooooo#..",".#ooo#oooo#ooo#.",".#oooooooooooo#.","..############..","..####oooo####..","..############..","....########....","....########....","................"],
+  f13:["...##########...","..############..",".##############.",".##############.",".####oooooo####.",".###oooooooo###.",".###oooooooo###.",".###o#oooo#o###.",".###o#oooo#o###.",".###oooooooo###.",".###+oooooo+###.",".###oo#oo#oo###.",".###ooo##ooo###.",".####oooooo####.",".##############.",".##############."],
+  f14:["....########....","...##########...","...##########...","...##########...","..############..",".##############.",".##o#oooooo#o##.",".##oo#oooo#oo##.",".##oo#oooo#oo##.",".##oooooooooo##.",".##oooooooooo##.",".##ooo#oo#ooo##.",".##oooo##oooo##.",".###oooooooo###.",".##.########.##.",".##..........##."],
+  f15:["....########....","...#oooooooo#...","..#oooooooooo#..","..#oooooooooo#..","..############..","..#oooooooooo#..","..#oooooooooo#..","..############..",".#o#o##oo##o#o#.",".#o####oo####o#.","..#o+oooooo+o#..","..#ooo#oo#ooo#..","..#oooo##oooo#..","...#oooooooo#...","....########....","................"],
+  f16:["................","................","....########....","...#oo++oooo#...","..#oo+####ooo#..","..#oooooooooo#..","..#oooooooooo#..","..#oo#oooo#oo#..",".#ooo#oooo#ooo#.",".#oooooooooooo#.","..#oo######oo#..","..#oo#oooo#oo#..","..#oooo##oooo#..","...#oooooooo#...","....########....","................"]
 };
 function faceKey(){ return "face:" + (MY_NAME || "_"); }   // 크루마다 따로 (같은 폰을 여럿이 써도 섞이지 않게)
 function myFace(){ const f = lsGet(faceKey()); return FACES[f] ? f : null; }
@@ -1269,11 +1258,12 @@ function chooseFace(id){
   if (!FACES[id]) return;
   lsSet(faceKey(), id);
   renderAvatars(); renderFacePicker();
-  toast(T("faceSaved"));
+  const st = document.getElementById("face-status");
+  if (st){ st.textContent = T("faceSaved"); clearTimeout(chooseFace._t); chooseFace._t = setTimeout(() => { st.textContent = ""; }, 2600); }
 }
 
 // ===== 테마 (색 조합) — 이 기기에만 저장. 색 값은 style.css의 [data-palette] 블록에만 있음 =====
-const THEMES = ["urban", "riviera", "gelato", "viridian", "pine"];
+const THEMES = ["urban"]; // v8.2부터 어반 하나만. 예전에 고른 다른 테마는 어반으로 돌아옴
 function currentTheme(){ const t = document.documentElement.getAttribute("data-palette"); return THEMES.includes(t) ? t : "urban"; }
 function applyThemeUI(){
   const t = currentTheme();

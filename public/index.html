@@ -11,7 +11,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png">
-<script>/* 테마를 화면 그리기 전에 적용 (깜빡임 방지) */(function(){var t="urban";try{t=localStorage.getItem("app-theme")||"urban"}catch(e){}if(!/^(urban|riviera|gelato|viridian|pine)$/.test(t))t="urban";document.documentElement.setAttribute("data-palette",t);})();</script>
+<script>/* 테마를 화면 그리기 전에 적용 (깜빡임 방지) */(function(){document.documentElement.setAttribute("data-palette","urban");})();</script>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -173,7 +173,7 @@
 
   <div class="menu-group-label" data-i18n="groupMyInfo">My info</div>
   <div class="menu-row" onclick="goTo('profile')"><span data-i18n="myCharacter">My profile</span><span class="menu-chevron">›</span></div>
-  <div class="menu-row" onclick="openSettings()"><span data-i18n="settingsRow">Settings (language · theme · time zone)</span><span class="menu-chevron">›</span></div>
+  <div class="menu-row" onclick="openSettings()"><span data-i18n="settingsRow">Settings (language · time zone)</span><span class="menu-chevron">›</span></div>
 
   <button class="action-btn logout-btn" onclick="logout()" data-i18n="logout">Log out</button>
 </section>
@@ -206,16 +206,6 @@
     <button class="settings-chip" id="lang-en-chip" onclick="setLang('en')">English</button>
   </div>
 
-
-  <div class="section-title" style="margin-top:20px;" data-i18n="themeLabel">Theme</div>
-  <div class="theme-grid" id="theme-grid">
-    <button class="theme-opt" data-theme-opt="urban" onclick="setTheme('urban')"><span class="theme-swatch sw-urban"><i></i><i></i><i></i><i></i><i></i></span><span class="theme-name"><span data-i18n="themeUrban">Urban</span><span class="theme-check">✓</span></span><span class="theme-desc" data-i18n="themeUrbanDesc">Ghost white, pastel tiles and black</span></button>
-    <button class="theme-opt" data-theme-opt="riviera" onclick="setTheme('riviera')"><span class="theme-swatch sw-riviera"><i></i><i></i><i></i><i></i></span><span class="theme-name"><span data-i18n="themeRiviera">Riviera</span><span class="theme-check">✓</span></span><span class="theme-desc" data-i18n="themeRivieraDesc">Muslin, terracotta and clove</span></button>
-    <button class="theme-opt" data-theme-opt="gelato" onclick="setTheme('gelato')"><span class="theme-swatch sw-gelato"><i></i><i></i><i></i><i></i></span><span class="theme-name"><span data-i18n="themeGelato">Gelato</span><span class="theme-check">✓</span></span><span class="theme-desc" data-i18n="themeGelatoDesc">Lemon, strawberry and chocolate</span></button>
-    <button class="theme-opt" data-theme-opt="viridian" onclick="setTheme('viridian')"><span class="theme-swatch sw-viridian"><i></i><i></i><i></i><i></i></span><span class="theme-name"><span data-i18n="themeViridian">Viridian</span><span class="theme-check">✓</span></span><span class="theme-desc" data-i18n="themeViridianDesc">Shell, honeydew and viridian</span></button>
-    <button class="theme-opt" data-theme-opt="pine" onclick="setTheme('pine')"><span class="theme-swatch sw-pine"><i></i><i></i><i></i><i></i></span><span class="theme-name"><span data-i18n="themePine">Pine</span><span class="theme-check">✓</span></span><span class="theme-desc" data-i18n="themePineDesc">Cream, grass and pine</span></button>
-  </div>
-  <div class="settings-note" style="margin-top:8px;" data-i18n="themeNote">The theme applies to this device only.</div>
 
   <div class="section-title" style="margin-top:20px;" data-i18n="mySiteLabel">My site</div>
   <div class="menu-row" onclick="openSitePicker()"><span id="settings-site-name">Unassigned</span><span class="menu-chevron">›</span></div>
@@ -269,7 +259,8 @@
   <div class="face-pick-head">
     <div class="face-current" id="face-current"></div>
     <div><div class="section-title" style="margin:0 0 4px;" data-i18n="faceTitle">My face</div>
-    <div class="settings-note" data-i18n="faceNote">Choose a face for your profile. It is saved on this device.</div></div>
+    <div class="settings-note" data-i18n="faceNote">Choose a face for your profile. It is saved on this device.</div>
+    <div class="face-status" id="face-status" role="status" aria-live="polite"></div></div>
   </div>
   <div class="face-grid" id="face-grid"></div>
 
@@ -391,7 +382,7 @@
   <div class="menu-row manager-up" onclick="exportAllData()"><span data-i18n="exportAllRow">Export all data to Excel</span><span class="menu-chevron">›</span></div>
   <div class="settings-note" style="margin:-2px 0 12px;" data-i18n="exportAllNote">Exports a single Excel file containing crew, requests, applications, checklists and activity log sheets.</div>
   <div class="menu-row owner-only" onclick="changeAdminPasswordPrompt()"><span data-i18n="adminPwRow">Change admin password</span><span class="menu-chevron">›</span></div>
-  <div class="menu-row" onclick="goTo('settings')"><span data-i18n="settingsRow">Settings (language · theme · time zone)</span><span class="menu-chevron">›</span></div>
+  <div class="menu-row" onclick="goTo('settings')"><span data-i18n="settingsRow">Settings (language · time zone)</span><span class="menu-chevron">›</span></div>
   <div class="menu-row" onclick="logout()"><span data-i18n="logout">Log out</span><span class="menu-chevron">›</span></div>
 </section>
 

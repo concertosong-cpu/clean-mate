@@ -313,6 +313,7 @@ Object.assign(i18n.en, {
 // ===== v7 테마 선택 문구 =====
 Object.assign(i18n.ko, {
   themeLabel:"테마", themeNote:"테마는 이 기기에만 적용됩니다.",
+  themeUrban:"어반", themeUrbanDesc:"고스트 화이트·파스텔 타일·블랙",
   themeRiviera:"리비에라", themeRivieraDesc:"머슬린·테라코타·클로브",
   themeGelato:"젤라토", themeGelatoDesc:"레몬·딸기·초콜릿",
   themeViridian:"비리디언", themeViridianDesc:"셸·허니듀·비리디언",
@@ -320,6 +321,7 @@ Object.assign(i18n.ko, {
 });
 Object.assign(i18n.en, {
   themeLabel:"Theme", themeNote:"The theme applies to this device only.",
+  themeUrban:"Urban", themeUrbanDesc:"Ghost white, pastel tiles and black",
   themeRiviera:"Riviera", themeRivieraDesc:"Muslin, terracotta and clove",
   themeGelato:"Gelato", themeGelatoDesc:"Lemon, strawberry and chocolate",
   themeViridian:"Viridian", themeViridianDesc:"Shell, honeydew and viridian",
@@ -1212,8 +1214,8 @@ function closeMenuIfBg(e){ if (e.target.id === "quick-menu-overlay") closeMenu()
 function openSettings(){ goTo("settings"); refreshGpsStatus(); const el = document.getElementById("settings-site-name"); if (el) el.textContent = MY_SITE || T("noSiteShort"); }
 
 // ===== 테마 (색 조합) — 이 기기에만 저장. 색 값은 style.css의 [data-palette] 블록에만 있음 =====
-const THEMES = ["riviera", "gelato", "viridian", "pine"];
-function currentTheme(){ const t = document.documentElement.getAttribute("data-palette"); return THEMES.includes(t) ? t : "riviera"; }
+const THEMES = ["urban", "riviera", "gelato", "viridian", "pine"];
+function currentTheme(){ const t = document.documentElement.getAttribute("data-palette"); return THEMES.includes(t) ? t : "urban"; }
 function applyThemeUI(){
   const t = currentTheme();
   document.querySelectorAll("[data-theme-opt]").forEach(b => b.classList.toggle("active", b.dataset.themeOpt === t));

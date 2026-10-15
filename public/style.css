@@ -554,19 +554,42 @@ select.join-input{ appearance:none; -webkit-appearance:none; }
    v7 테마 스킨 — 색 조합 4종(Riviera·Gelato·Viridian·Pine) + 유리 카드
    색은 아래 [data-palette] 블록에만 있습니다. 화면 규칙은 변수만 씁니다.
    모양: 반투명 유리 카드, 큰 둥근 모서리, 떠 있는 알약 메뉴, 가는 큰 숫자
-   영문 서체 Outfit → Montserrat → Pretendard(한글)
+   영문 서체 Urbanist → Montserrat → Pretendard(한글)
    ===================================================================== */
 @font-face{
   font-family:'AppDisplay';
-  src:url('fonts/Outfit-var.woff2') format('woff2-variations');
+  src:url('fonts/Urbanist-var.woff2') format('woff2-variations'), url('fonts/Urbanist-var.woff2') format('woff2');
   font-weight:100 900; font-display:swap;
   unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+2000-2027, U+2030-205E, U+2212, U+2215;
 }
 
 /* 배색 원칙: 바탕·카드는 팔레트의 가장 밝은 색(약 60%) · 보조색은 선택/근무일 표시만 옅게(약 30%)
    · 포인트색은 옅은 바탕+진한 글자로 오늘 날짜·공지·근무 중에만(약 10%) · 주요 버튼은 팔레트의 짙은 색 */
-/* ---------- Riviera (기본) — Muslin #F1EFE6 바탕 · Sandstone 보조 · Terracotta 포인트 · Clove 버튼 ---------- */
-:root, :root[data-palette="riviera"]{
+/* ---------- Urban (기본) — 참고 시안: Ghost White #F6F5FA · Alice Blue #D8DFE9 · Honeydew #CFDECA · Vanilla #EFF0A3 · Eerie Black #212121
+   흰 바탕에 파스텔 타일, 주요 버튼은 검정 알약. 유리 효과·배경 그림 없이 평평하게 ---------- */
+:root, :root[data-palette="urban"]{
+  --bg:#F6F5FA; --bg-art:none; --texture:none;
+  --on-bg:#212121; --on-bg-mute:#55555C;
+  --card:#FFFFFF; --card-solid:#FFFFFF; --card-edge:rgba(255,255,255,0);
+  --card-alt:#EFEFF4; --worked:#CFDECA; --select:#ECECF2;
+  --ink:#212121; --ink-soft:#3A3A40; --ink-mute:#55555C; --line:rgba(33,33,33,.10);
+  --accent:#EFF0A3; --accent-soft:#EFF0A3; --accent-ink:#212121;
+  --strong:#212121; --on-strong:#FFFFFF;
+  --chip:#D8DFE9; --on-chip:#212121;
+  --tint:#FFFFFF;
+  --link:#2F4A6E; --ok-dot:#7FA37A; --warn:#A8432F; --ok-on-bg:#3F6A3A;
+  --soft-warn-bg:#F6DAD2; --soft-warn-ink:#7A3420;
+  --dot-note:#9AAED0; --dot-issue:#D9634A; --dot-personal:#B9C98E;
+  --scrim:rgba(33,33,33,.36);
+  --shadow-card:0 1px 2px rgba(33,33,33,.04);
+  --shadow-float:0 10px 28px rgba(33,33,33,.12);
+  --nav-bg:#FFFFFF;
+  --meta:#F6F5FA;
+  --tile-1:#D8DFE9; --tile-2:#CFDECA; --tile-3:#EFF0A3;
+}
+
+/* ---------- Riviera — Muslin #F1EFE6 바탕 · Sandstone 보조 · Terracotta 포인트 · Clove 버튼 ---------- */
+:root[data-palette="riviera"]{
   --bg:#F1EFE6;
   --bg-art:radial-gradient(90% 45% at 100% 0%, rgba(220,207,184,.45) 0%, rgba(220,207,184,0) 65%);
   --on-bg:#3A2F2A; --on-bg-mute:#685B53;
@@ -669,6 +692,8 @@ select.join-input{ appearance:none; -webkit-appearance:none; }
   --text-muted:var(--ink-mute); --stone:var(--card-alt);
   --shell:var(--card-solid); --honeydew:var(--accent-soft); --viridian:var(--strong);
   --glass:blur(18px) saturate(140%);
+  --tile-1:var(--select); --tile-2:var(--worked); --tile-3:var(--accent-soft);
+  --chev:"→";
   --toast-bg:var(--strong); --on-toast:var(--on-strong);
   /* 참고 팔레트의 리넨 종이 질감 — 아주 옅게 */
   --texture:
@@ -821,7 +846,7 @@ h1{ font-weight:500; font-size:19px; letter-spacing:-0.3px; color:var(--on-bg); 
 .section-title + .menu-row:last-child{ border-radius:var(--r-card); }
 .menu-row + .menu-group-label{ margin-top:24px; }
 .menu-chevron{ font-size:0; color:var(--ink-mute); }
-.menu-chevron::after{ content:"→"; font-size:18px; font-family:'AppLatin',sans-serif; color:var(--ink-soft); }
+.menu-chevron::after{ content:var(--chev); font-size:18px; font-family:'AppLatin',sans-serif; color:var(--ink-soft); }
 .menu-row span:first-child{ font-size:19px; font-weight:300; }
 
 /* ---------- 프로필 카드 ---------- */
@@ -1083,6 +1108,7 @@ h1{ font-weight:500; font-size:19px; letter-spacing:-0.3px; color:var(--on-bg); 
 .theme-check{ width:20px; height:20px; border-radius:50%; background:var(--strong); color:var(--on-strong); font-size:11px; display:none; align-items:center; justify-content:center; }
 .theme-opt.active .theme-check{ display:flex; }
 /* 견본 색 — 바탕 · 보조 · 포인트 · 버튼 */
+.sw-urban i:nth-child(1){ background:#F6F5FA; } .sw-urban i:nth-child(2){ background:#D8DFE9; } .sw-urban i:nth-child(3){ background:#CFDECA; } .sw-urban i:nth-child(4){ background:#EFF0A3; } .sw-urban i:nth-child(5){ background:#212121; }
 .sw-riviera i:nth-child(1){ background:#F1EFE6; } .sw-riviera i:nth-child(2){ background:#DCCFB8; } .sw-riviera i:nth-child(3){ background:#AD7556; } .sw-riviera i:nth-child(4){ background:#53443D; }
 .sw-gelato i:nth-child(1){ background:#EFE8D8; } .sw-gelato i:nth-child(2){ background:#D8D7B2; } .sw-gelato i:nth-child(3){ background:#E5ADA8; } .sw-gelato i:nth-child(4){ background:#725C3F; }
 .sw-viridian i:nth-child(1){ background:#F7F5F1; } .sw-viridian i:nth-child(2){ background:#D5E3E8; } .sw-viridian i:nth-child(3){ background:#E4E3BC; } .sw-viridian i:nth-child(4){ background:#344945; }
@@ -1090,3 +1116,129 @@ h1{ font-weight:500; font-size:19px; letter-spacing:-0.3px; color:var(--on-bg); 
 
 /* 움직임을 줄이도록 설정한 기기 */
 @media (prefers-reduced-motion: reduce){ body{ transition:none; } }
+
+
+/* =====================================================================
+   Urban 테마 전용 모양 (v8 미리보기) — 참고 시안
+   · 평평한 흰 카드 + 파스텔 타일(Alice Blue·Honeydew·Vanilla)
+   · 주요 버튼·선택 표시·뒤로 버튼은 검정(#212121), 칩은 테두리 알약
+   · 타일 오른쪽 위 ↗ 표시, 큰 숫자는 굵게
+   ===================================================================== */
+[data-palette="urban"]{ --glass:none; --r-card:28px; --chev:"↗"; }
+[data-palette="urban"] body{ background:var(--bg); }
+[data-palette="urban"] .greeting{ font-weight:500; font-size:29px; letter-spacing:-0.6px; }
+[data-palette="urban"] .section-title, [data-palette="urban"] .menu-group-label{ color:var(--ink-mute); font-weight:600; }
+
+/* 뒤로·내보내기 */
+[data-palette="urban"] .back{ background:var(--strong); color:var(--on-strong); border:none; }
+[data-palette="urban"] .export-btn{ background:transparent; color:var(--ink); border:1px solid rgba(33,33,33,.38); }
+
+/* 카드 공통: 테두리·그림자 없이 */
+[data-palette="urban"] .job-card, [data-palette="urban"] .rank-list-card, [data-palette="urban"] .day-detail,
+[data-palette="urban"] .colleague-row, [data-palette="urban"] .chat-bubble, [data-palette="urban"] .calendar-grid,
+[data-palette="urban"] .profile-card, [data-palette="urban"] .menu-profile{ border:none; box-shadow:none; }
+
+/* 출퇴근 카드 = Alice Blue 타일 */
+[data-palette="urban"] .clock-card{ background:var(--tile-1); border:none; box-shadow:none; position:relative; }
+[data-palette="urban"] .clock-card::after{ content:"↗"; position:absolute; top:18px; right:20px; font-size:20px; color:var(--ink); font-family:'AppDisplay',sans-serif; }
+[data-palette="urban"] .clock-time{ font-weight:600; letter-spacing:-1.5px; }
+[data-palette="urban"] .clock-btn{ border-radius:999px; background:var(--strong); color:var(--on-strong); }
+[data-palette="urban"] .clock-btn.working, [data-palette="urban"] .clock-btn.on{ background:var(--tile-3); color:var(--ink); box-shadow:inset 0 0 0 1.5px var(--strong); }
+[data-palette="urban"] .clock-sub{ border-top-color:rgba(33,33,33,.14); }
+[data-palette="urban"] .clock-sub span:last-child{ font-weight:700; }
+
+/* 주간 요일 */
+[data-palette="urban"] .week-day.today .num, [data-palette="urban"] .week-day.today.worked .num{ background:var(--strong); color:var(--on-strong); }
+[data-palette="urban"] .week-day.worked .num{ background:var(--tile-2); color:var(--ink); }
+
+/* 빠른 실행 = 파스텔 타일 + 검정 원 아이콘 */
+[data-palette="urban"] .quick-item{ border:none; box-shadow:none; border-radius:24px; position:relative; padding:16px 6px 12px; }
+[data-palette="urban"] .quick-item:nth-child(1){ background:var(--tile-2); }
+[data-palette="urban"] .quick-item:nth-child(2){ background:var(--tile-3); }
+[data-palette="urban"] .quick-item:nth-child(3){ background:var(--tile-1); }
+[data-palette="urban"] .quick-item:nth-child(4){ background:var(--card); }
+[data-palette="urban"] .quick-icon{ background:var(--strong) !important; }
+[data-palette="urban"] .quick-icon svg{ stroke:var(--on-strong) !important; }
+[data-palette="urban"] .quick-label{ color:var(--ink); font-weight:600; }
+
+/* 리스트 행 = 흰 카드 + ↗ */
+[data-palette="urban"] .menu-row{ background:var(--card); }
+[data-palette="urban"] .menu-chevron::after{ color:var(--ink); font-size:19px; }
+
+/* 하단 메뉴 = 흰 알약 + 검정 선택 */
+[data-palette="urban"] .navbar{ background:var(--nav-bg); border:none; }
+[data-palette="urban"] .nav-item.active{ background:var(--strong); color:var(--on-strong); }
+[data-palette="urban"] .nav-item.active .nav-icon svg{ stroke:var(--on-strong); }
+
+/* 칩·탭 = 테두리 알약, 선택은 검정 */
+[data-palette="urban"] .settings-chip, [data-palette="urban"] .admin-tab{ background:transparent; color:var(--ink); border:1px solid rgba(33,33,33,.38); }
+[data-palette="urban"] .settings-chip.active, [data-palette="urban"] .admin-tab.active,
+[data-palette="urban"] .overlay .settings-chip.active{ background:var(--strong); color:var(--on-strong); border-color:var(--strong); box-shadow:none; }
+[data-palette="urban"] .overlay .settings-chip{ background:transparent; border:1px solid rgba(33,33,33,.38); }
+
+/* 버튼 */
+[data-palette="urban"] .action-btn{ border-radius:999px; background:var(--card); border:1px solid rgba(33,33,33,.16); color:var(--ink); }
+[data-palette="urban"] .action-btn.primary, [data-palette="urban"] .role-btn.employee,
+[data-palette="urban"] .overlay .action-btn.primary{ border-radius:999px; background:var(--strong); color:var(--on-strong); border:none; box-shadow:none; }
+[data-palette="urban"] .role-btn{ border-radius:999px; }
+[data-palette="urban"] .role-btn.join{ background:var(--card); border:1px solid rgba(33,33,33,.16); color:var(--ink); }
+[data-palette="urban"] .role-btn.admin{ background:transparent; border:1px solid rgba(33,33,33,.38); color:var(--ink); }
+[data-palette="urban"] .sheet-btn{ border-radius:999px; }
+
+/* 입력칸 */
+[data-palette="urban"] .join-input, [data-palette="urban"] .pin-input{ background:var(--card); border:1px solid #E2E2EA; box-shadow:none; border-radius:18px; }
+[data-palette="urban"] .overlay .join-input{ background:var(--card-alt); border-color:transparent; }
+
+/* 관리자 지표 = 파스텔 타일 3개, 왼쪽 정렬 큰 숫자 + ↗ */
+[data-palette="urban"] .admin-stat-card{ border:none; box-shadow:none; border-radius:24px; text-align:left; padding:14px 14px 13px; position:relative; }
+[data-palette="urban"] .admin-stat-row .admin-stat-card:nth-child(1){ background:var(--tile-1); }
+[data-palette="urban"] .admin-stat-row .admin-stat-card:nth-child(2){ background:var(--tile-2); }
+[data-palette="urban"] .admin-stat-row .admin-stat-card:nth-child(3){ background:var(--tile-3); }
+[data-palette="urban"] .admin-stat-card::after{ content:"↗"; position:absolute; top:10px; right:12px; font-size:15px; color:var(--ink); }
+[data-palette="urban"] .admin-stat-row .admin-stat-card .admin-stat-num{ font-weight:700; font-size:28px; color:var(--ink) !important; letter-spacing:-0.8px; }
+[data-palette="urban"] .admin-stat-row .admin-stat-card .admin-stat-label{ color:var(--ink-soft) !important; font-size:11px; }
+[data-palette="urban"] .rank-badge{ background:transparent; border:1px solid rgba(33,33,33,.38); color:var(--ink); }
+[data-palette="urban"] .server-status, [data-palette="urban"] .offline-note, [data-palette="urban"] .reg-warning{ background:var(--card); border:none; color:var(--ink-soft); }
+
+/* 공지 = Vanilla 알약 + 검정 원 화살표 */
+[data-palette="urban"] .notice-pin{ background:var(--tile-3); color:var(--ink); border-radius:999px; padding:12px 12px 12px 18px; box-shadow:none; }
+[data-palette="urban"] .notice-pin::after{ content:"↗"; flex:none; margin-left:auto; width:34px; height:34px; border-radius:50%; background:var(--strong); color:var(--on-strong); display:flex; align-items:center; justify-content:center; font-size:15px; }
+[data-palette="urban"] .notice-pin b{ background:var(--card); color:var(--ink); }
+
+/* 일정 카드 */
+[data-palette="urban"] .job-time{ background:var(--tile-1); color:var(--ink); border-radius:14px; }
+[data-palette="urban"] .job-status{ background:transparent; color:var(--ink); border:1px solid rgba(33,33,33,.38); }
+[data-palette="urban"] .job-status.status-done{ background:var(--tile-3); border-color:transparent; }
+[data-palette="urban"] #today-jobs .job-card.is-example{ background:var(--card); border:1.5px dashed rgba(33,33,33,.22); opacity:.85; }
+
+/* 근무시간·캘린더 */
+[data-palette="urban"] .hours-card{ background:var(--tile-2); border:none; box-shadow:none; }
+[data-palette="urban"] .hours-value, [data-palette="urban"] .hours-big{ font-weight:600; }
+[data-palette="urban"] .calendar-grid .cal-day.today, [data-palette="urban"] .cal-day.today,
+[data-palette="urban"] .calendar-grid .cal-day.worked.today, [data-palette="urban"] .calendar-grid .cal-day.today.off{ background:var(--strong); color:var(--on-strong); }
+[data-palette="urban"] .calendar-grid .cal-day.worked, [data-palette="urban"] .cal-day.worked{ background:var(--tile-2); }
+[data-palette="urban"] .calendar-grid .cal-day.overtime{ background:var(--tile-3); color:var(--ink); }
+
+/* 프로필 */
+[data-palette="urban"] .menu-profile, [data-palette="urban"] .profile-card{ background:var(--tile-1); }
+[data-palette="urban"] .face-badge{ background:var(--strong); color:var(--on-strong); }
+
+/* 로그인 */
+[data-palette="urban"] .logo-tile{ background:var(--strong); box-shadow:none; }
+[data-palette="urban"] .logo-tile svg path, [data-palette="urban"] .logo-tile svg circle[fill="#EFE095"]{ fill:var(--on-strong); }
+[data-palette="urban"] .logo-tile svg circle[stroke]{ stroke:var(--on-strong); stroke-opacity:.35; }
+[data-palette="urban"] .login-headline b, [data-palette="urban"] .login-hero .hero-nav span b{ color:var(--ink); }
+[data-palette="urban"] .login-headline b{ background:linear-gradient(transparent 58%, var(--tile-3) 58%, var(--tile-3) 92%, transparent 92%); padding:0 2px; }
+[data-palette="urban"] .login-hero .hero-nav span.light{ background:transparent; border:1px solid rgba(33,33,33,.38); color:var(--ink); }
+
+/* 시트·토스트·채팅 */
+[data-palette="urban"] .sheet{ border-radius:32px 32px 0 0; }
+[data-palette="urban"] .chat-send-btn{ background:var(--strong); color:var(--on-strong); }
+[data-palette="urban"] .chat-bubble.me{ background:var(--tile-1); }
+[data-palette="urban"] .chat-input-row{ border:none; }
+[data-palette="urban"] .theme-opt{ border:none; }
+[data-palette="urban"] .theme-opt.active{ box-shadow:0 0 0 2px var(--strong); }
+/* 테마 카드 5개: 어반을 맨 위 한 줄로 크게 (나머지 4개는 2×2) */
+.theme-grid .theme-opt[data-theme-opt="urban"]{ grid-column:1 / -1; }
+/* 흰 바탕 위 작은 점은 바닐라보다 한 단계 진하게 */
+[data-palette="urban"] .dot.overtime{ background:#C8CA4E; }

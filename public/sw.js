@@ -1,4 +1,4 @@
-const CACHE_NAME = "eric-cleaning-v26";
+const CACHE_NAME = "eric-cleaning-v27";
 const ASSETS = [
   "./index.html",
   "./style.css",
@@ -8,7 +8,7 @@ const ASSETS = [
   "./icons/icon-180.png",
   "./img/hero.jpg",
   "./fonts/Montserrat-var.woff2",
-  "./fonts/Outfit-var.woff2",
+  "./fonts/Urbanist-var.woff2",
   "./fonts/Pretendard-400.woff2",
   "./fonts/Pretendard-600.woff2",
   "./fonts/Pretendard-700.woff2"

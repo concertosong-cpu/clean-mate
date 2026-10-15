@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v8.0 (2026-10-15, 미리보기 — redesign-urban 브랜치) — 어반 리디자인
+- 새 기본 테마 어반(Urban): Ghost White #F6F5FA 바탕, Alice Blue #D8DFE9 · Honeydew #CFDECA · Vanilla #EFF0A3 파스텔 타일, Eerie Black #212121 버튼
+- 출퇴근 카드·빠른 실행·관리자 지표를 파스텔 타일로, 주요 버튼·선택·뒤로·오늘 날짜는 검정, 칩은 테두리 알약, 타일 ↗ 표시
+- 영문 서체 Outfit → Urbanist(OFL, public/fonts에 보관). 기존 테마 4종 유지
+- 테마 카드 5개 중 어반을 맨 위 한 줄로, 흰 바탕 위 오버타임 점 진하게
+- 검증: 대비 5테마 4.5:1 이상, Playwright 영·한 9화면 오류 0. 캐시 eric-cleaning-v27
+- 노션 릴리스 노트는 노션 연결 오류(10/15)로 아직 못 씀 — 이 항목이 원본
+
 ## v7.6 (2026-10-10) — 오늘 일정 예시를 브리즈번 실제 매장 이름으로
 - 울월스 투웡 빌리지점(Toowong QLD 4066) · 콜스 인두루필리점(Indooroopilly QLD 4068) · 알디 써니뱅크 힐스점(Sunnybank Hills QLD 4109)
 - 예시 표시 유지 — 실제 거래처가 아님. 캐시 eric-cleaning-v26

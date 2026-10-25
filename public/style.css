@@ -1146,9 +1146,14 @@ body.no-nav .app-toast.show{ transform:translate(-50%,0); }
 .face-status{ min-height:18px; margin-top:6px; font-size:13px; font-weight:600; color:var(--ok-on-bg); }
 
 /* 작은 글자 최소 13px — 바깥(햇빛)에서도 읽히게. 요일·메뉴 이름처럼 칸이 좁은 곳은 12px */
-.quick-label, .cal-legend, .cal-hint, .hours-label, .hours-k, .rank-list-title, .rank-hint, .gps-line,
+.cal-legend, .cal-hint, .hours-label, .hours-k, .rank-list-title, .rank-hint, .gps-line,
 .job-status, .job-example-label, .admin-stat-label, .chat-bubble-time, .colleague-days, .ev-meta,
 .day-note-k, .join-label, .sheet-hint, .login-title, .gps-pill, .settings-note, .greeting-sub, .job-meta,
 .job-checklist-link, .site-label, .clock-record, .profile-sub, .colleague-time, .join-note, .login-sub,
 .login-caption, .export-btn, .clock-status{ font-size:13px !important; }
-.week-day .dow, .cal-dow, .nav-item, .or-divider{ font-size:12px !important; }
+.week-day .dow, .cal-dow, .nav-item, .or-divider, .quick-label{ font-size:12px !important; }
+
+/* v8.3 메뉴·설정 줄 제목: 19px 얇은 글씨 → 16px 보통 굵기 (화면 안에서 제목보다 커 보이지 않게) */
+.menu-row{ padding:15px 18px; font-size:16px; font-weight:500; letter-spacing:-0.2px; }
+.menu-row span:first-child{ font-size:16px; font-weight:500; }
+[data-palette="urban"] .menu-chevron::after{ font-size:16px; }
